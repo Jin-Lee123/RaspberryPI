@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HOME NETWORK</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>HOME IoT</h2>
+        </div>
+        <div class="main">
+            <div>
+                <button onclick="led_on1()">LED ON1</button>
+            </div>
+            <div>
+                <button onclick="led_on2()">LED ON2</button>
+            </div>
+			<div>
+				<button onclick="led_on3()">LED ON3</button>
+			</div>
+			<div>
+				<button onclick="buz()">BUZZER ON</button>
+			</div>
+			<div>
+				<button onclick="Temp()">TEMP ON</button>
+			</div>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+    <script>
+        function led_on1(){
+            fetch("/led/on1")
+            .then(response=> { console.log(response); return response.text()})
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");
+                if(data=="ok"){
+                    result.innerHTML = "<h1>1 LED is runinng(7-segmet)</h1>";
+                }else{
+                    result.innerHTML = "<h1>error</h1>";
+                }
+            });
+        }
+        function led_on2(){
+            fetch("/led/on2")
+            .then(response=> response.text())
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");
+                if(data=="ok"){  
+                    result.innerHTML = "<h1>2 LED is running(7-segmet)</h1>";
+                }else{
+                    result.innerHTML = "<h1>error</h1>";
+                }
+            });
+        }
+		function led_on3(){
+		    fetch("/led/on3")
+			.then(response=> response.text())
+			.then(data=> {
+				console.log(data);
+				let result = document.querySelector("#result");
+				if(data=="ok"){
+					result.innerHTML = "<h1>3 LED is running(7-segmet)</h1>";
+				}else{
+					result.innerHTML = "<h1>error</h1>";
+				}
+			});
+		}
+		function buz(){
+			fetch("/led/buz")
+			.then(response=> response.text())
+			.then(data=> {
+				console.log(data);
+				let result = document.querySelector("#result");
+				if(data=="ok"){
+					result.innerHTML = "<h1>BUZZER ON</h1>";
+				}else{
+					result.innerHTML = "<h1>error</h1>";
+				}
+			});
+		}
+		function Temp(){
+			fetch("/led/Temp")
+			.then(response=> response.text())
+			.then(data=> {
+				console.log(data);
+				let result = document.querySelector("#result");
+				result.innerHTML=data;
+			});
+		}		
+    </script>
+</body>
+</html>
